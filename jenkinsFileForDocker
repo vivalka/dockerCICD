@@ -8,6 +8,14 @@ git 'https://github.com/vivalka/dockerCICD'
         stage ('docker image build') {
      sh 'docker build -t vivek119/viv-app:1.0.0 .'
 	}
+	stage ('Push Docker image to DockerHub') {
+   withCredentials([string(credentialsId: 'dockerHubAcc', variable: 'dockerHubAcc')]) {
+           sh "docker login -u vivek119 -p ${dockerHubAcc}"
+     }
+           sh 'docker push vivek119/viv-app:1.0.0'
+	
+     }
+
 
 
 }
